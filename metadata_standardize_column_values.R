@@ -7,7 +7,7 @@ content <-  googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1T
 content <- as.data.table(content)
 colnames(content) <- c("Category","Column", "mainName", "allNames")
 
-x <- fread("~/Desktop/temp files/filtered_riboseq_done_260623.csv")
+x <- fread("temp_files/filtered_riboseq_done_260623.csv")
 
 # Table info
 # Total rows
@@ -27,7 +27,7 @@ SRA_cols <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1T
 SRA_cols <- colnames(SRA_cols)
 SRA_cols <- SRA_cols[!(SRA_cols %in% c("sample_title", "Info", "sample_source", "LibraryName", "ScientificName"))]
 SRA_to_id <- x[, c("Run", "BioProject"), with = F]
-fwrite(SRA_to_id, file = "~/Desktop/temp files/SRA_ids.csv")
+fwrite(SRA_to_id, file = "temp_files/SRA_ids.csv")
 x <- x[,!(colnames(x) %in% SRA_cols), with = F]
 
 
@@ -91,7 +91,7 @@ column_usage_check(dt)
 dt_st <- copy(dt)
 colnames(dt_st) <- paste0(colnames(dt_st), "_st")
 x_st <- cbind(x, dt_st)
-fwrite(x_st, "~/Desktop/temp files/standardized_columns_with_original.csv")
+fwrite(x_st, "temp_files/standardized_columns_with_original.csv")
 
 #
 # # Then check strategy

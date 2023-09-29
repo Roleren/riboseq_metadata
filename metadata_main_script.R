@@ -12,7 +12,10 @@ column_usage_check <- function(dt, step_string = "first standardization") {
   print(b)
   return(b)
 }
-setwd("~/Desktop/metadata/")
+setwd("~/projects/riboseq_metadata/")
+
+# set up temp file directory within project
+dir.create(file.path(dirname("."), "temp_files"))
 
 # 1. Merge columns
 source("metadata_cleanup_columns.R")
