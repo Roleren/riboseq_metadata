@@ -2,7 +2,7 @@ library(ORFik); library(data.table); library(readxl)
 
 total_columns <- c()
 # Update this path, all else should just work
-a <- fread("~/Downloads/riboseq_meta150623.csv")
+a <- fread("RiboSeq_Metadata_All_Columns.csv")
 dim(a); total_columns <- c(total_columns, dim(a)[2])
 
 # Convert booleans to strings
