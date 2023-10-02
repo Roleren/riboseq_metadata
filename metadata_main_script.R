@@ -12,7 +12,23 @@ column_usage_check <- function(dt, step_string = "first standardization") {
   print(b)
   return(b)
 }
-setwd("~/Desktop/metadata/")
+setwd("~/projects/riboseq_metadata/")
+
+# set up temp file directory within project
+dir.create(file.path(dirname("."), "temp_files"))
+dir.create('SraRunInfo')
+
+################################################################################
+#
+# If downloads have already been carried out. Comment out 0.1 and 0.2
+# 
+################################################################################
+
+# 0.1 Find and Fetch 
+source("metadata_find&fetch.R")
+# 0.2 Identify Ribo-Seq
+source("finding_riboseq.R")
+
 
 # 1. Merge columns
 source("metadata_cleanup_columns.R")

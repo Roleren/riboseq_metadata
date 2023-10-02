@@ -2,8 +2,8 @@ library(ORFik); library(data.table); library(readxl); library(BiocParallel)
 library(googledrive); library(massiveNGSpipe)
 # devtools::load_all()
 findFromPath <- ORFik:::findFromPath
-input_file_path <- "~/Desktop/temp files/standardized_columns_with_original.csv"
-final_file_path <- "~/Desktop/temp files/standardized_columns_final.csv"
+input_file_path <- "temp_files/standardized_columns_with_original.csv"
+final_file_path <- "temp_files/standardized_columns_final.csv"
 
 
 x_st <- fread(input_file_path)
@@ -47,7 +47,7 @@ content_inhib <- content[content$Column == "INHIBITOR",]
 
 
 # x_st[ , new := do.call(paste, c(.SD, sep = "_")), .SDcols=-which(colnames(x_st) %in% c("REPLICATE", "REPLICATE_st"))]
-ids <- fread("~/Desktop/temp files/SRA_ids.csv")
+ids <- fread("temp_files/SRA_ids.csv")
 x_final <- copy(x_st)
 x_final <- cbind(x_final, ids)
 # Grep coded
@@ -96,7 +96,7 @@ fwrite(x_final, final_file_path)
 googledrive::drive_upload(final_file_path, as_id("https://drive.google.com/drive/folders/1QLq31NOM1NgC4otN5664_Sdg6QvUlOwg"), overwrite = TRUE)
 
 # Statistics and column usage of results
-View(x_final[not_unique == F,])
+# View(x_final[not_unique == F,])
 nrow(x_final[LIBRARYTYPE_st == "",]); View(x_final[LIBRARYTYPE_st == "",])
 dtt <- x_final[, grep("_st", colnames(x_final)), with = F]
 colnames(dtt) <- gsub("_st", "", colnames(dtt))

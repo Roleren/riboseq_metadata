@@ -1,6 +1,6 @@
 library(data.table)
 library(ORFik)
-studies <- sapply(system("ls ~/Bio_data/metadata/SraRunInfo/SraRunInfo*", intern = TRUE), fread, USE.NAMES = TRUE, simplify = FALSE)
+studies <- sapply(system("ls SraRunInfo/SraRunInfo*", intern = TRUE), fread, USE.NAMES = TRUE, simplify = FALSE)
 studies <- lapply(studies, function(x) as.data.table(apply(x,2, function(y) as.character(y))))
 names(studies) <- names(studies) %>%  sub(".*SraRunInfo_","",.) %>% sub(".csv","",.)
 dt <- rbindlist(studies, fill = TRUE)
@@ -18,3 +18,4 @@ basic_terms <- c("ribo", "footprint", "RPF", "RFP", "80S", "MNAse", "translatome
 first_batch <- termindexer(basic_terms, dt)
 second_batch <- termindexer(c("rp", "rf", "fp"),  dt[!(Run %in% first_batch$Run),][,c('Run','LibraryName','sample_title'), ])
 
+fwrite(first_batch, "RiboSeq_Metadata_All_Columns.csv")

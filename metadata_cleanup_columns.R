@@ -2,7 +2,7 @@ library(ORFik); library(data.table); library(readxl)
 
 total_columns <- c()
 # Update this path, all else should just work
-a <- fread("~/Downloads/riboseq_meta150623.csv")
+a <- fread("RiboSeq_Metadata_All_Columns.csv")
 dim(a); total_columns <- c(total_columns, dim(a)[2])
 
 # Convert booleans to strings
@@ -122,9 +122,7 @@ dim(x); total_columns <- c(total_columns, dim(x)[2])
 names(total_columns) <- c("raw", "empty_filtered", "equal merged", "similar merged", "open merged", "technical merged", "irrelevant filtered", "duplicated accession")
 total_columns
 
-
-
-fwrite(x, file = "~/Desktop/temp files/filtered_riboseq_done_260623.csv")
+fwrite(x, file = "temp_files/filtered_riboseq_done_260623.csv")
 
 # For inspection, ignore SRA columns and made columns
 SRA_cols <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1TVjXdpyAMJBex-OWyfEdZf_nfF79bPd_T6TpXS1LnFM/edit#gid=515852084",
